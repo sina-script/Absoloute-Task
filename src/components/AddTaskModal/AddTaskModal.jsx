@@ -1,25 +1,38 @@
 import styles from "./AddTaskModal.module.css";
 
-export default function AddTaskModal() {
+export default function AddTaskModal({ closeModal }) {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-
         <header className={styles.header}>
           <div className={styles.titleWrapper}>
             <h2>Create a Task</h2>
             <p>Define your next objective clearly.</p>
           </div>
-          <button className={styles.closeBtn} aria-label="Close">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          <button
+            className={styles.closeBtn}
+            aria-label="Close"
+            onClick={closeModal}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
           </button>
         </header>
-
 
         <div className={styles.formContainer}>
           <div className={styles.formGroup}>
             <label htmlFor="title">Task Title</label>
-            <input id="title" type="text" placeholder="What needs to be done?" />
+            <input
+              id="title"
+              type="text"
+              placeholder="What needs to be done?"
+            />
           </div>
 
           <div className={styles.formGroup}>
@@ -39,9 +52,8 @@ export default function AddTaskModal() {
           </div>
         </div>
 
-
         <footer className={styles.footer}>
-          <button className={styles.cancelBtn}>Cancel</button>
+          <button className={styles.cancelBtn} onClick={closeModal}>Cancel</button>
           <button className={styles.submitBtn}>Create Task</button>
         </footer>
       </div>
