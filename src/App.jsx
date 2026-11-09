@@ -1,9 +1,25 @@
 import AddTaskModal from "./components/AddTaskModal/AddTaskModal";
+import Task from "./components/Task/Task";
 import "./app.css";
 import { useState } from "react";
 
 function App() {
   const [isShowTaskModal, setIsShowTaskModal] = useState(false);
+  const [tasksList, setTasksList] = useState([]);
+
+  const addTaskHandler = (title, desc, isImportant) => {
+    const newTask = {
+      id: Math.floor(Math.random()),
+      title,
+      desc,
+      isImportant,
+      isCompleted: false,
+    };
+
+    setTasksList([...tasksList, newTask]);
+  };
+
+  console.log(tasksList);
 
   return (
     <>
@@ -84,101 +100,9 @@ function App() {
             </div>
 
             <div className="task-list">
-              <article className="task-card">
-                <div className="task-main">
-                  <h3>Shape the next big idea</h3>
-                  <p>
-                    Explore directions, collect references, and build a visual
-                    foundation for the new project.
-                  </p>
-
-                  <div className="task-badges">
-                    <span className="badge badge-pending">
-                      <span className="badge-dot" />
-                      Not Completed
-                    </span>
-
-                    <span className="badge badge-important">
-                      <svg className="badge-icon" aria-hidden="true">
-                        <use href="#icon-star" />
-                      </svg>
-                      Important
-                    </span>
-                  </div>
-                </div>
-
-                <div className="task-actions">
-                  <button
-                    className="icon-button complete-button"
-                    type="button"
-                    aria-label="Complete Shape the next big idea"
-                    title="Complete task"
-                  >
-                    <svg className="icon" aria-hidden="true">
-                      <use href="#icon-check" />
-                    </svg>
-                  </button>
-
-                  <button
-                    className="icon-button delete-button"
-                    type="button"
-                    aria-label="Delete Shape the next big idea"
-                    title="Delete task"
-                  >
-                    <svg className="icon" aria-hidden="true">
-                      <use href="#icon-close" />
-                    </svg>
-                  </button>
-                </div>
-              </article>
-
-              <article className="task-card">
-                <div className="task-main">
-                  <h3>Plan the product launch</h3>
-                  <p>
-                    Outline the milestones, align the details, and turn the
-                    roadmap into something real.
-                  </p>
-
-                  <div className="task-badges">
-                    <span className="badge badge-pending">
-                      <span className="badge-dot" />
-                      Not Completed
-                    </span>
-
-                    <span className="badge badge-important">
-                      <svg className="badge-icon" aria-hidden="true">
-                        <use href="#icon-star" />
-                      </svg>
-                      Important
-                    </span>
-                  </div>
-                </div>
-
-                <div className="task-actions">
-                  <button
-                    className="icon-button complete-button"
-                    type="button"
-                    aria-label="Complete Plan the product launch"
-                    title="Complete task"
-                  >
-                    <svg className="icon" aria-hidden="true">
-                      <use href="#icon-check" />
-                    </svg>
-                  </button>
-
-                  <button
-                    className="icon-button delete-button"
-                    type="button"
-                    aria-label="Delete Plan the product launch"
-                    title="Delete task"
-                  >
-                    <svg className="icon" aria-hidden="true">
-                      <use href="#icon-close" />
-                    </svg>
-                  </button>
-                </div>
-              </article>
+              {tasksList.map((task) => {
+                return <Task id={task.id} {...task}></Task>;
+              })}
             </div>
           </section>
 
@@ -190,107 +114,7 @@ function App() {
               <h2 id="completed-heading">Completed Tasks:</h2>
             </div>
 
-            <div className="task-list">
-              <article className="task-card is-completed">
-                <div className="task-main">
-                  <h3>Build the design system</h3>
-                  <p>
-                    Set the visual language, define the components, and bring
-                    consistency to every detail.
-                  </p>
-
-                  <div className="task-badges">
-                    <span className="badge badge-completed">
-                      <svg className="badge-icon" aria-hidden="true">
-                        <use href="#icon-check" />
-                      </svg>
-                      Completed
-                    </span>
-
-                    <span className="badge badge-important">
-                      <svg className="badge-icon" aria-hidden="true">
-                        <use href="#icon-star" />
-                      </svg>
-                      Important
-                    </span>
-                  </div>
-                </div>
-
-                <div className="task-actions">
-                  <button
-                    className="icon-button complete-button"
-                    type="button"
-                    aria-label="Complete Build the design system"
-                    title="Complete task"
-                  >
-                    <svg className="icon" aria-hidden="true">
-                      <use href="#icon-check" />
-                    </svg>
-                  </button>
-
-                  <button
-                    className="icon-button delete-button"
-                    type="button"
-                    aria-label="Delete Build the design system"
-                    title="Delete task"
-                  >
-                    <svg className="icon" aria-hidden="true">
-                      <use href="#icon-close" />
-                    </svg>
-                  </button>
-                </div>
-              </article>
-
-              <article className="task-card is-completed">
-                <div className="task-main">
-                  <h3>Finish the first milestone</h3>
-                  <p>
-                    Review the progress, close the open loops, and celebrate a
-                    meaningful step forward.
-                  </p>
-
-                  <div className="task-badges">
-                    <span className="badge badge-completed">
-                      <svg className="badge-icon" aria-hidden="true">
-                        <use href="#icon-check" />
-                      </svg>
-                      Completed
-                    </span>
-
-                    <span className="badge badge-important">
-                      <svg className="badge-icon" aria-hidden="true">
-                        <use href="#icon-star" />
-                      </svg>
-                      Important
-                    </span>
-                  </div>
-                </div>
-
-                <div className="task-actions">
-                  <button
-                    className="icon-button complete-button"
-                    type="button"
-                    aria-label="Complete Finish the first milestone"
-                    title="Complete task"
-                  >
-                    <svg className="icon" aria-hidden="true">
-                      <use href="#icon-check" />
-                    </svg>
-                  </button>
-
-                  <button
-                    className="icon-button delete-button"
-                    type="button"
-                    aria-label="Delete Finish the first milestone"
-                    title="Delete task"
-                  >
-                    <svg className="icon" aria-hidden="true">
-                      <use href="#icon-close" />
-                    </svg>
-                  </button>
-                </div>
-              </article>
-            </div>
+            <div className="task-list"></div>
           </section>
 
           <footer className="page-footer">
@@ -301,7 +125,10 @@ function App() {
       </div>
 
       {isShowTaskModal && (
-        <AddTaskModal closeModal={() => setIsShowTaskModal(false)}></AddTaskModal>
+        <AddTaskModal
+          closeModal={() => setIsShowTaskModal(false)}
+          addTaskHandler={addTaskHandler}
+        ></AddTaskModal>
       )}
     </>
   );

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./AddTaskModal.module.css";
 
-export default function AddTaskModal({ closeModal }) {
+export default function AddTaskModal({ closeModal, addTaskHandler }) {
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [isImportant, setIsImportant] = useState(false);
@@ -57,9 +57,14 @@ export default function AddTaskModal({ closeModal }) {
           </div>
 
           <div className={styles.checkboxWrapper}>
-            <input type="checkbox" id="important" checked={isImportant} onChange={(event)=>{
-              setIsImportant(event.target.checked)
-            }}/>
+            <input
+              type="checkbox"
+              id="important"
+              checked={isImportant}
+              onChange={(event) => {
+                setIsImportant(event.target.checked);
+              }}
+            />
             <label htmlFor="important" className={styles.checkboxLabel}>
               <span className={styles.checkIcon}></span>
               <div className={styles.checkText}>
@@ -74,7 +79,16 @@ export default function AddTaskModal({ closeModal }) {
           <button className={styles.cancelBtn} onClick={closeModal}>
             Cancel
           </button>
-          <button className={styles.submitBtn}>Create Task</button>
+          <button
+            className={styles.submitBtn}
+            onClick={() =>{
+              addTaskHandler(taskTitle, taskDescription, isImportant)
+              closeModal()
+            }
+            }
+          >
+            Create Task
+          </button>
         </footer>
       </div>
     </div>
