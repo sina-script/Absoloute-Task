@@ -1,6 +1,6 @@
 import styles from "./Task.module.css";
 
-function Task({ title, desc, isImportant, isCompleted }) {
+function Task({ id, title, desc, isImportant, isCompleted, completeTask }) {
   return (
     <article className={`${styles.taskCard} ${styles.isCompleted}`}>
       <div className={styles.taskMain}>
@@ -8,32 +8,39 @@ function Task({ title, desc, isImportant, isCompleted }) {
         <p>{desc}</p>
 
         <div className={styles.taskBadges}>
-          <span className={`${styles.badge} ${styles.badgeCompleted}`}>
-            <svg className={styles.badgeIcon} aria-hidden="true">
-              <use href="#icon-check" />
-            </svg>
-            Completed
-          </span>
+          {isCompleted && (
+            <span className={`${styles.badge} ${styles.badgeCompleted}`}>
+              <svg className={styles.badgeIcon} aria-hidden="true">
+                <use href="#icon-check" />
+              </svg>
+              Completed
+            </span>
+          )}
 
-          <span className={`${styles.badge} ${styles.badgeImportant}`}>
-            <svg className={styles.badgeIcon} aria-hidden="true">
-              <use href="#icon-star" />
-            </svg>
-            Important
-          </span>
+          {isImportant||!isCompleted && (
+            <span className={`${styles.badge} ${styles.badgeImportant}`}>
+              <svg className={styles.badgeIcon} aria-hidden="true">
+                <use href="#icon-star" />
+              </svg>
+              Important
+            </span>
+          )}
         </div>
       </div>
 
       <div className={styles.taskActions}>
-        <button
-          className={`${styles.iconButton} ${styles.completeButton}`}
-          type="button"
-          aria-label="Complete task"
-        >
-          <svg className={styles.icon} aria-hidden="true">
-            <use href="#icon-check" />
-          </svg>
-        </button>
+        {!isCompleted && (
+          <button
+            className={`${styles.iconButton} ${styles.completeButton}`}
+            type="button"
+            aria-label="Complete task"
+            onClick={() => completeTask(id)}
+          >
+            <svg className={styles.icon} aria-hidden="true">
+              <use href="#icon-check" />
+            </svg>
+          </button>
+        )}
 
         <button
           className={`${styles.iconButton} ${styles.deleteButton}`}

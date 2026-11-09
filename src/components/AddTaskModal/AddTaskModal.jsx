@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./AddTaskModal.module.css";
 
-export default function AddTaskModal({ closeModal, addTaskHandler }) {
+ function AddTaskModal({ closeModal, addTaskHandler }) {
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [isImportant, setIsImportant] = useState(false);
@@ -94,3 +94,5 @@ export default function AddTaskModal({ closeModal, addTaskHandler }) {
     </div>
   );
 }
+
+export default AddTaskModal;

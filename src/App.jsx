@@ -9,7 +9,7 @@ function App() {
 
   const addTaskHandler = (title, desc, isImportant) => {
     const newTask = {
-      id: Math.floor(Math.random()),
+      id: Date.now(),
       title,
       desc,
       isImportant,
@@ -19,7 +19,17 @@ function App() {
     setTasksList([...tasksList, newTask]);
   };
 
-  console.log(tasksList);
+  const completeTask = (taskId) => {
+    const newTasksList = tasksList.map((task) => {
+      if (task.id == taskId) {
+        task.isCompleted = true;
+      }
+
+      return task;
+    });
+
+    setTasksList(newTasksList);
+  };
 
   return (
     <>
@@ -100,9 +110,19 @@ function App() {
             </div>
 
             <div className="task-list">
-              {tasksList.map((task) => {
-                return <Task id={task.id} {...task}></Task>;
-              })}
+              {tasksList
+                .filter((task) => {
+                  return task.isCompleted == false;
+                })
+                .map((task) => {
+                  return (
+                    <Task
+                      id={task.id}
+                      {...task}
+                      completeTask={completeTask}
+                    ></Task>
+                  );
+                })}
             </div>
           </section>
 
@@ -113,7 +133,17 @@ function App() {
             <div className="section-heading">
               <h2 id="completed-heading">Completed Tasks:</h2>
             </div>
-
+                {tasksList.filter((task)=>{
+                  return task.isCompleted==true;
+                }).map((task)=>{
+                  return(
+                    <Task
+                      id={task.id}
+                      {...task}
+                      completeTask={completeTask}
+                    ></Task>
+                  )
+                })}
             <div className="task-list"></div>
           </section>
 
