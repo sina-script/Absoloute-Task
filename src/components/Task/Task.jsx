@@ -1,6 +1,6 @@
 import styles from "./Task.module.css";
 
-function Task({ id, title, desc, isImportant, isCompleted, completeTask }) {
+function Task({ id, title, desc, isImportant, isCompleted, completeTask,removeTask}) {
   return (
     <article className={`${styles.taskCard} ${styles.isCompleted}`}>
       <div className={styles.taskMain}>
@@ -46,6 +46,7 @@ function Task({ id, title, desc, isImportant, isCompleted, completeTask }) {
           className={`${styles.iconButton} ${styles.deleteButton}`}
           type="button"
           aria-label="Delete task"
+          onClick={()=>removeTask(id)}
         >
           <svg className={styles.icon} aria-hidden="true">
             <use href="#icon-close" />

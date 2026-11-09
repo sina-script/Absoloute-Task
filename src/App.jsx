@@ -31,6 +31,14 @@ function App() {
     setTasksList(newTasksList);
   };
 
+  const removeTask = (taskId) => {
+    const newTasksList = tasksList.filter((task) => {
+      return task.id != taskId;
+    });
+
+    setTasksList(newTasksList);
+  };
+
   return (
     <>
       <div className="app" dir="ltr">
@@ -120,6 +128,7 @@ function App() {
                       id={task.id}
                       {...task}
                       completeTask={completeTask}
+                      removeTask={removeTask}
                     ></Task>
                   );
                 })}
@@ -133,17 +142,20 @@ function App() {
             <div className="section-heading">
               <h2 id="completed-heading">Completed Tasks:</h2>
             </div>
-                {tasksList.filter((task)=>{
-                  return task.isCompleted==true;
-                }).map((task)=>{
-                  return(
-                    <Task
-                      id={task.id}
-                      {...task}
-                      completeTask={completeTask}
-                    ></Task>
-                  )
-                })}
+            {tasksList
+              .filter((task) => {
+                return task.isCompleted == true;
+              })
+              .map((task) => {
+                return (
+                  <Task
+                    id={task.id}
+                    {...task}
+                    completeTask={completeTask}
+                    removeTask={removeTask}
+                  ></Task>
+                );
+              })}
             <div className="task-list"></div>
           </section>
 
