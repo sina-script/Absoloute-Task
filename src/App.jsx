@@ -169,7 +169,6 @@ export default function App() {
 
         <section className="tasks-section" aria-labelledby="available-title">
           <div className="section-heading">
-            <span className="section-count">01</span>
             <h2 id="available-title">Available Tasks:</h2>
           </div>
 
@@ -226,7 +225,6 @@ export default function App() {
           aria-labelledby="completed-title"
         >
           <div className="section-heading">
-            <span className="section-count">01</span>
             <h2 id="completed-title">Completed Tasks:</h2>
           </div>
 
