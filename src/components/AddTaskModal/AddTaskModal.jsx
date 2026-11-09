@@ -1,6 +1,11 @@
+import { useState } from "react";
 import styles from "./AddTaskModal.module.css";
 
 export default function AddTaskModal({ closeModal }) {
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
+  const [isImportant, setIsImportant] = useState(false);
+
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
@@ -32,16 +37,29 @@ export default function AddTaskModal({ closeModal }) {
               id="title"
               type="text"
               placeholder="What needs to be done?"
+              value={taskTitle}
+              onChange={(event) => {
+                setTaskTitle(event.target.value);
+              }}
             />
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="desc">Description</label>
-            <textarea id="desc" rows="3" placeholder="Add details..." />
+            <label htmlFor="desc">Task Description</label>
+            <textarea
+              id="desc"
+              rows="3"
+              placeholder="Add details..."
+              onChange={(event) => {
+                setTaskDescription(event.target.value);
+              }}
+            />
           </div>
 
           <div className={styles.checkboxWrapper}>
-            <input type="checkbox" id="important" defaultChecked />
+            <input type="checkbox" id="important" checked={isImportant} onChange={(event)=>{
+              setIsImportant(event.target.checked)
+            }}/>
             <label htmlFor="important" className={styles.checkboxLabel}>
               <span className={styles.checkIcon}></span>
               <div className={styles.checkText}>
@@ -53,7 +71,9 @@ export default function AddTaskModal({ closeModal }) {
         </div>
 
         <footer className={styles.footer}>
-          <button className={styles.cancelBtn} onClick={closeModal}>Cancel</button>
+          <button className={styles.cancelBtn} onClick={closeModal}>
+            Cancel
+          </button>
           <button className={styles.submitBtn}>Create Task</button>
         </footer>
       </div>
