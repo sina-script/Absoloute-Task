@@ -2,6 +2,7 @@ import AddTaskModal from "./components/AddTaskModal/AddTaskModal";
 import Task from "./components/Task/Task";
 import "./app.css";
 import { useState } from "react";
+import NoTask from "./components/NoTask/NoTask"
 
 function App() {
   const [isShowTaskModal, setIsShowTaskModal] = useState(false);
@@ -121,8 +122,10 @@ function App() {
               {tasksList
                 .filter((task) => {
                   return task.isCompleted == false;
-                })
-                .map((task) => {
+                }).length?
+                tasksList.filter((task) => {
+                  return task.isCompleted == false;
+                }).map((task) => {
                   return (
                     <Task
                       id={task.id}
@@ -131,7 +134,7 @@ function App() {
                       removeTask={removeTask}
                     ></Task>
                   );
-                })}
+                }):<NoTask></NoTask>}
             </div>
           </section>
 
@@ -142,20 +145,22 @@ function App() {
             <div className="section-heading">
               <h2 id="completed-heading">Completed Tasks:</h2>
             </div>
-            {tasksList
-              .filter((task) => {
-                return task.isCompleted == true;
-              })
-              .map((task) => {
-                return (
-                  <Task
-                    id={task.id}
-                    {...task}
-                    completeTask={completeTask}
-                    removeTask={removeTask}
-                  ></Task>
-                );
-              })}
+              {tasksList
+                .filter((task) => {
+                  return task.isCompleted == true;
+                }).length?
+                tasksList.filter((task) => {
+                  return task.isCompleted == true;
+                }).map((task) => {
+                  return (
+                    <Task
+                      id={task.id}
+                      {...task}
+                      completeTask={completeTask}
+                      removeTask={removeTask}
+                    ></Task>
+                  );
+                }):<NoTask></NoTask>}
             <div className="task-list"></div>
           </section>
 

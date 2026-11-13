@@ -9,6 +9,7 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
   transition: all 0.25s ease;
+  margin-bottom: 20px;
 }
 
 .taskCard:hover {
@@ -22,7 +23,6 @@
 }
 
 .isCompleted .taskMain h3 {
-  /* خط روی متن حذف شد، رنگ متن به دلخواه شماست */
   color: #f3f4f6; 
 }
 

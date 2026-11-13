@@ -17,7 +17,7 @@ function Task({ id, title, desc, isImportant, isCompleted, completeTask,removeTa
             </span>
           )}
 
-          {isImportant||!isCompleted && (
+          {isImportant && (
             <span className={`${styles.badge} ${styles.badgeImportant}`}>
               <svg className={styles.badgeIcon} aria-hidden="true">
                 <use href="#icon-star" />

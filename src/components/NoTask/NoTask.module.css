@@ -1,0 +1,564 @@
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes artEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) rotate(-7deg) scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0) scale(1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+
+  50% {
+    transform: translateY(-11px) rotate(-3deg);
+  }
+}
+
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.94);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+.emptyState {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 350px);
+  align-items: center;
+  gap: clamp(20px, 4vw, 56px);
+  width: 100%;
+  min-height: 390px;
+  padding: clamp(28px, 5vw, 56px);
+  overflow: hidden;
+  border: 1px solid var(--border-strong, rgba(220, 240, 215, 0.18));
+  border-radius: 22px;
+  background:
+    radial-gradient(
+      circle at 83% 44%,
+      rgba(170, 255, 84, 0.075),
+      transparent 34%
+    ),
+    linear-gradient(135deg, #121813 0%, #0d110e 58%, #0b0f0c 100%);
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  direction: ltr;
+  text-align: left;
+  animation: enter 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.emptyState::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  opacity: 0.42;
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(170, 255, 84, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(170, 255, 84, 0.045) 1px,
+      transparent 1px
+    );
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to right, transparent 20%, black 100%);
+}
+
+.emptyState::after {
+  position: absolute;
+  top: 0;
+  left: clamp(28px, 5vw, 56px);
+  width: 72px;
+  height: 2px;
+  content: "";
+  background: var(--neon, #aaff54);
+  box-shadow: 0 0 18px rgba(170, 255, 84, 0.55);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  text-align: left;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 22px;
+  color: var(--neon, #aaff54);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.19em;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.kickerDot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 12px rgba(170, 255, 84, 0.7);
+  animation: twinkle 2.8s ease-in-out infinite;
+}
+
+.title {
+  margin: 0;
+  color: var(--text-main, #f3f6f1);
+  font-family: var(--font-family, inherit);
+  font-size: clamp(1.8rem, 3.3vw, 2.9rem);
+  font-weight: 800;
+  line-height: 1.13;
+  letter-spacing: -0.055em;
+  text-align: left;
+}
+
+.title span {
+  color: var(--neon, #aaff54);
+  text-shadow: 0 0 40px rgba(170, 255, 84, 0.16);
+}
+
+.description {
+  max-width: 430px;
+  margin: 18px 0 0;
+  color: var(--text-muted, #8d978c);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.85;
+  text-align: left;
+}
+
+.action {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 28px;
+}
+
+.action > button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 11px;
+  min-height: 48px;
+  padding: 0 18px;
+  overflow: hidden;
+  border: 1px solid var(--neon, #aaff54);
+  border-radius: 10px;
+  background: var(--neon, #aaff54);
+  color: #081006;
+  font-family: var(--font-family, inherit);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: left;
+  box-shadow: 0 8px 26px rgba(170, 255, 84, 0.16);
+  cursor: pointer;
+  transition:
+    transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.action > button::after {
+  position: absolute;
+  top: -60%;
+  left: -65%;
+  width: 35%;
+  height: 220%;
+  content: "";
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.48);
+  filter: blur(12px);
+  transform: rotate(25deg);
+  transition: left 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.action > button:hover {
+  transform: translateY(-3px);
+  background: #c0ff83;
+  box-shadow: 0 14px 32px rgba(170, 255, 84, 0.25);
+}
+
+.action > button:hover::after {
+  left: 135%;
+}
+
+.action > button:active {
+  transform: translateY(0);
+}
+
+.action > button:focus-visible {
+  outline: 2px solid #f3f6f1;
+  outline-offset: 3px;
+}
+
+.action svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
+.action > button span:last-child {
+  margin-left: 14px;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.footnote {
+  display: block;
+  margin-top: 23px;
+  color: var(--text-subtle, #566055);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-align: left;
+}
+
+.art {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 320px);
+  aspect-ratio: 1;
+  animation: artEnter 850ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both;
+}
+
+.ambientGlow {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: rgba(170, 255, 84, 0.15);
+  filter: blur(45px);
+  animation: breathe 5s ease-in-out infinite;
+}
+
+.orbit {
+  position: absolute;
+  inset: 5%;
+  border: 1px dashed rgba(170, 255, 84, 0.17);
+  border-radius: 50%;
+}
+
+.orbit::after {
+  position: absolute;
+  inset: 13%;
+  content: "";
+  border: 1px solid rgba(170, 255, 84, 0.08);
+  border-radius: 50%;
+}
+
+.orbiter {
+  position: absolute;
+  inset: 5%;
+  border-radius: 50%;
+  animation: orbit 18s linear infinite;
+}
+
+.orbitDot {
+  position: absolute;
+  top: -4px;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--neon, #aaff54);
+  box-shadow: 0 0 15px rgba(170, 255, 84, 0.7);
+}
+
+.backCard {
+  position: absolute;
+  top: 23%;
+  left: 21%;
+  width: 61%;
+  height: 57%;
+  border: 1px solid rgba(170, 255, 84, 0.18);
+  border-radius: 18px;
+  background: #1b281d;
+  transform: rotate(9deg) translate(13px, -4px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+}
+
+.paper {
+  position: absolute;
+  top: 22%;
+  left: 18%;
+  display: flex;
+  flex-direction: column;
+  width: 61%;
+  height: 57%;
+  padding: 12%;
+  border: 1px solid rgba(203, 240, 188, 0.16);
+  border-radius: 18px;
+  background: linear-gradient(145deg, #263329, #131b16 70%);
+  box-shadow:
+    0 24px 45px rgba(0, 0, 0, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  animation: float 5.5s ease-in-out infinite;
+}
+
+.paperHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 19%;
+}
+
+.paperIcon {
+  display: grid;
+  place-items: center;
+  width: clamp(24px, 3.5vw, 35px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(170, 255, 84, 0.29);
+  border-radius: 9px;
+  background: rgba(170, 255, 84, 0.13);
+  color: var(--neon, #aaff54);
+}
+
+.paperIcon svg {
+  width: 56%;
+  height: 56%;
+}
+
+.paperIndicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--neon, #aaff54);
+  box-shadow: 0 0 12px rgba(170, 255, 84, 0.7);
+}
+
+.paperLine,
+.paperLineShort,
+.paperRowLine,
+.paperRowLineShort {
+  display: block;
+  height: 5px;
+  border-radius: 10px;
+  background: rgba(219, 238, 213, 0.36);
+}
+
+.paperLine {
+  width: 80%;
+}
+
+.paperLineShort {
+  width: 53%;
+  margin-top: 9px;
+  background: rgba(219, 238, 213, 0.18);
+}
+
+.paperDivider {
+  width: 100%;
+  height: 1px;
+  margin: auto 0 12px;
+  background: rgba(219, 238, 213, 0.1);
+}
+
+.paperRow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 10px;
+}
+
+.paperRow:last-child {
+  margin-bottom: 0;
+}
+
+.paperCheckbox {
+  width: 11px;
+  height: 11px;
+  flex: none;
+  border: 1px solid rgba(170, 255, 84, 0.5);
+  border-radius: 3px;
+}
+
+.paperRowLine {
+  width: 57%;
+  height: 4px;
+  background: rgba(219, 238, 213, 0.2);
+}
+
+.paperRowLineShort {
+  width: 42%;
+  height: 4px;
+  background: rgba(219, 238, 213, 0.14);
+}
+
+.sparkleOne,
+.sparkleTwo {
+  position: absolute;
+  color: var(--neon, #aaff54);
+  line-height: 1;
+  text-shadow: 0 0 16px rgba(170, 255, 84, 0.5);
+  animation: twinkle 3.4s ease-in-out infinite;
+}
+
+.sparkleOne {
+  top: 11%;
+  right: 22%;
+  font-size: 19px;
+}
+
+.sparkleTwo {
+  bottom: 16%;
+  left: 9%;
+  font-size: 12px;
+  animation-delay: 1.3s;
+}
+
+@media (max-width: 760px) {
+  .emptyState {
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 12px;
+    min-height: 320px;
+    padding: 32px;
+  }
+
+  .paper {
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .emptyState {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    min-height: 0;
+    padding: 30px 24px 10px;
+  }
+
+  .emptyState::after {
+    left: 24px;
+  }
+
+  .art {
+    width: min(100%, 240px);
+    margin-top: 4px;
+  }
+
+  .kicker {
+    margin-bottom: 16px;
+  }
+
+  .title {
+    font-size: clamp(1.75rem, 7vw, 2.3rem);
+  }
+
+  .description {
+    margin-top: 14px;
+  }
+
+  .action {
+    margin-top: 22px;
+  }
+
+  .footnote {
+    margin-top: 18px;
+  }
+
+  .paperIcon {
+    width: 27px;
+  }
+}
+
+@media (max-width: 380px) {
+  .emptyState {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .emptyState::after {
+    left: 20px;
+  }
+
+  .action > button {
+    width: 100%;
+  }
+
+  .action > button span:last-child {
+    margin-left: auto;
+  }
+
+  .art {
+    width: min(100%, 205px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emptyState,
+  .art,
+  .ambientGlow,
+  .orbiter,
+  .paper,
+  .kickerDot,
+  .sparkleOne,
+  .sparkleTwo {
+    animation: none;
+  }
+
+  .action > button,
+  .action > button::after {
+    transition: none;
+  }
+}
