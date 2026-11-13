@@ -80,7 +80,7 @@ function App() {
           <header className="hero">
             <div className="eyebrow">
               <span className="eyebrow-dot" />
-              <span>YOUR PERSONAL WORKSPACE</span>
+              <span>YOUR PERSONAL TASK MANAGEMENT</span>
             </div>
 
             <h1>
