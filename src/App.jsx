@@ -1,12 +1,13 @@
 import AddTaskModal from "./components/AddTaskModal/AddTaskModal";
 import Task from "./components/Task/Task";
 import "./app.css";
-import { useState } from "react";
-import NoTask from "./components/NoTask/NoTask"
+import { use, useState } from "react";
+import NoTask from "./components/NoTask/NoTask";
 
 function App() {
   const [isShowTaskModal, setIsShowTaskModal] = useState(false);
   const [tasksList, setTasksList] = useState([]);
+  const [taskFilter, setTaskFilter] = useState("uncompleted");
 
   const addTaskHandler = (title, desc, isImportant) => {
     const newTask = {
@@ -38,6 +39,20 @@ function App() {
     });
 
     setTasksList(newTasksList);
+  };
+
+  const taskFilterHandler = () => {
+    if (taskFilter == "uncompleted") {
+      return tasksList.filter((task) => {
+        return task.isCompleted == false;
+      });
+    } else if (taskFilter == "important") {
+      return tasksList.filter((task) => {
+        return task.isImportant == true ;
+      });
+    } else {
+      return tasksList;
+    }
   };
 
   return (
@@ -102,11 +117,14 @@ function App() {
                 className="task-select"
                 defaultValue="all"
                 aria-label="Select task view"
+                value={taskFilter}
+                onChange={(event) => {
+                  setTaskFilter(event.target.value);
+                }}
               >
                 <option value="all">All Tasks</option>
                 <option value="important">Important Tasks</option>
-                <option value="available">Available Tasks</option>
-                <option value="completed">Completed Tasks</option>
+                <option value="uncompleted">Uncompleted Tasks</option>
               </select>
 
               <span className="select-chevron" aria-hidden="true" />
@@ -119,22 +137,19 @@ function App() {
             </div>
 
             <div className="task-list">
-              {tasksList
-                .filter((task) => {
-                  return task.isCompleted == false;
-                }).length?
-                tasksList.filter((task) => {
-                  return task.isCompleted == false;
-                }).map((task) => {
-                  return (
-                    <Task
-                      id={task.id}
-                      {...task}
-                      completeTask={completeTask}
-                      removeTask={removeTask}
-                    ></Task>
-                  );
-                }):<NoTask></NoTask>}
+      {taskFilterHandler().length ? (
+       taskFilterHandler().map((task) => (
+          <Task
+            key={task.id}
+            id={task.id}
+            {...task}
+            completeTask={completeTask}
+            removeTask={removeTask}
+          />
+        ))
+      ) : (
+        <NoTask />
+      )}
             </div>
           </section>
 
@@ -145,13 +160,14 @@ function App() {
             <div className="section-heading">
               <h2 id="completed-heading">Completed Tasks:</h2>
             </div>
-              {tasksList
+            {tasksList.filter((task) => {
+              return task.isCompleted == true;
+            }).length ? (
+              tasksList
                 .filter((task) => {
                   return task.isCompleted == true;
-                }).length?
-                tasksList.filter((task) => {
-                  return task.isCompleted == true;
-                }).map((task) => {
+                })
+                .map((task) => {
                   return (
                     <Task
                       id={task.id}
@@ -160,7 +176,10 @@ function App() {
                       removeTask={removeTask}
                     ></Task>
                   );
-                }):<NoTask></NoTask>}
+                })
+            ) : (
+              <NoTask></NoTask>
+            )}
             <div className="task-list"></div>
           </section>
 
